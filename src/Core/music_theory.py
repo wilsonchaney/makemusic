@@ -28,6 +28,11 @@ notes = ["C", ("C#", "Db"), "D", ("D#", "Eb"), "E", "F", ("F#", "Gb"), "G", ("G#
 white_keys = ["C","D","E","F","G","A","B"]
 
 scale_steps = [0, 2, 4, 5, 7, 9, 11]
+def get_scale_step(idx):
+    """
+    This is just a modulus-safe way to access the scale_steps array - turns out it simplifies LOTS of other code.
+    """
+    return scale_steps[idx % 7]
 
 interval_names = ["SAME", "MIN_2ND", "MAJ_2ND", "MIN_3RD", "MAJ_3RD", "PER_4TH", "TRITONE", "PER_5TH", "MIN_6TH", "MAJ_6TH", "MIN_7TH", "MAJ_7TH"]
 
