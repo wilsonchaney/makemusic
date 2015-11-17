@@ -203,23 +203,29 @@ def makeChordMeasure(chord,measure_duration):
     firstNote = Note(firstPitch,measure_duration)
     return [firstNote];
 
-    # This function needs some work to avoid dissonance.
-    '''
+    # TODO: This function needs some work to avoid dissonance.
+
     rhythm = gen_rhythm(1,measure_duration,notes=[1,2,3,4])
     firstPitch = chord.get_pitch(1,2)
     firstNote = Note(firstPitch,rhythm[0])
     result = [[firstNote]]
     for r in rhythm[1:]:
         steps = chordTuples[random.randint(0,len(chordTuples)-1)]
+
+        dist1 = scale_steps[steps[0]-1]
+        dist2 = scale_steps[steps[1]-1]
+        if dist2 == 0:
+            dist2 = 13
+
+        raise Exception("Need to do some weird relative distance things in here!")
+
         # Assuming 2-tuple
-        bottomPitch = chord.get_pitch(steps[0],octave=2)
-        topPitch = chord.get_pitch(steps[1],octave=2)
-        if steps[1] == 1:
-            topPitch = chord.get_pitch(steps[1],octave=3)
+        bottomPitch = firstPitch.add_half_steps(dist1)
+        topPitch = firstPitch.add_half_steps(dist2)
+
         result.append([Note(bottomPitch,r),Note(topPitch,r)])
     print "Created voicing: "
     print str(result[0][0].pitch)
     for r in result[1:]:
         print str(r[0].pitch),str(r[1].pitch)
     return result
-    '''
