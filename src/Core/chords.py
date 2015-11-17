@@ -198,13 +198,6 @@ def makeChordMeasure(chord,measure_duration):
     :return: list of Note n-tuples, to be played by the left hand of the piano player
     '''
 
-    # for now, just playing the root note
-    firstPitch = chord.get_pitch(1,2)
-    firstNote = Note(firstPitch,measure_duration)
-    return [firstNote];
-
-    # TODO: This function needs some work to avoid dissonance.
-
     rhythm = gen_rhythm(1,measure_duration,notes=[1,2,3,4])
     firstPitch = chord.get_pitch(1,2)
     firstNote = Note(firstPitch,rhythm[0])
@@ -217,11 +210,9 @@ def makeChordMeasure(chord,measure_duration):
         if dist2 == 0:
             dist2 = 13
 
-        raise Exception("Need to do some weird relative distance things in here!")
-
         # Assuming 2-tuple
-        bottomPitch = firstPitch.add_half_steps(dist1)
-        topPitch = firstPitch.add_half_steps(dist2)
+        bottomPitch = firstPitch.add_scale_steps(dist1)
+        topPitch = firstPitch.add_scale_steps(dist2)
 
         result.append([Note(bottomPitch,r),Note(topPitch,r)])
     print "Created voicing: "

@@ -246,6 +246,20 @@ class Pitch:
         relative_step = (note_val - key.value + 12) % 12  # + 12 needed => when/if key val is higher that note_val!!
         return scale_steps.index(relative_step) + 1
 
+    def add_scale_steps(self,scale_steps):
+        """ Returns a NEW pitch, with the given # of scale steps.
+
+        Args:
+            scale_steps (int): Number of scale steps to increment by
+        """
+        new_pitch = Pitch(self.value,self.key)
+        while scale_steps > 0:
+            # increment by that scale_step
+            num_half_steps = (12+get_scale_step(new_pitch.scale_step)-get_scale_step(new_pitch.scale_step-1)) % 12
+            new_pitch.value += num_half_steps
+            scale_steps -= 1
+            new_pitch.set_up()
+        return new_pitch
 
 class Note(object):
     """A musical note, made up of a pitch and a duration.
