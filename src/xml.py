@@ -1,6 +1,6 @@
 __author__ = 'Wilson'
 from elementtree.SimpleXMLWriter import XMLWriter
-from Core.chords import Chord,makeChordMeasure
+from Core.chords import Chord,make_chord_measure
 from Core.music_theory import *
 
 class XMLNote(Note):
@@ -91,7 +91,7 @@ class MusicXMLWriter:
             #c = measure.chords[0].get_random_voicing(measure.duration)
             #self.writeNoteXML(c,2)
             ### NEW
-            newThing = makeChordMeasure(measure.chords[0],measure.duration)
+            newThing = make_chord_measure(measure.chords[0],measure.duration)
             for note_tuple in newThing:
                 self.writeNoteXML(note_tuple,2)
             ####

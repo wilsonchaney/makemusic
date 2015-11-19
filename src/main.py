@@ -52,7 +52,7 @@ song.populate_measures()
 
 last_pitch_before_final_measure = song.get_measures()[-1]._notes[-1].pitch
 final_chord = Chord(1,"maj",song.key)
-makeChordMeasure(final_chord,4)
+make_chord_measure(final_chord,4)
 song.append_final_measure(melody_engine.get_final_measure(song.beats_per_measure,final_chord,last_pitch_before_final_measure))
 
 writer = MusicXMLWriter(song)

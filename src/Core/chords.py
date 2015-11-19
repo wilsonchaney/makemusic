@@ -191,17 +191,17 @@ def addSteps(step1,step2):
     return result
 
 
-def makeChordMeasure(chord,measure_duration):
+def make_chord_measure(chord,measure_duration):
     '''
     :param chord:
     :param measure_duration:
-    :return: list of Note n-tuples, to be played by the left hand of the piano player
+    :return: list of Note (lists), to be played by the left hand of the piano player
     '''
 
     rhythm = gen_rhythm(1,measure_duration,notes=[1,2,3,4])
-    firstPitch = chord.get_pitch(1,2)
-    firstNote = Note(firstPitch,rhythm[0])
-    result = [[firstNote]]
+    first_pitch = chord.get_pitch(1,2)
+    first_note = Note(first_pitch,rhythm[0])
+    result = [[first_note]]
     for r in rhythm[1:]:
         steps = chordTuples[random.randint(0,len(chordTuples)-1)]
 
@@ -211,12 +211,8 @@ def makeChordMeasure(chord,measure_duration):
             dist2 = 13
 
         # Assuming 2-tuple
-        bottomPitch = firstPitch.add_scale_steps(dist1)
-        topPitch = firstPitch.add_scale_steps(dist2)
+        bottom_pitch = first_pitch.add_scale_steps(dist1)
+        top_pitch = first_pitch.add_scale_steps(dist2)
 
-        result.append([Note(bottomPitch,r),Note(topPitch,r)])
-    print "Created voicing: "
-    print str(result[0][0].pitch)
-    for r in result[1:]:
-        print str(r[0].pitch),str(r[1].pitch)
+        result.append([Note(bottom_pitch,r),Note(top_pitch,r)])
     return result
