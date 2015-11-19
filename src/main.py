@@ -2,10 +2,16 @@ from Core import *
 from xml import MusicXMLWriter
 import time
 
+def output_time_elapsed(name,start,end):
+    print name+":","%.2f" % (1000*(end-start)) +"ms"
+
+
 start_time = time.time()
 
 song = Song.create_random_attributes(beats_per_measure=4,unique_sections=3,total_sections=6,key_signature="C")
 melody_engine = MelodyEngine(song)
+
+mark1 = time.time()
 
 total_repeat_count = 0
 while True:
@@ -33,7 +39,7 @@ while True:
         continue
     else:
         break
-
+mark2 = time.time()
 # For each section, generate a melody (both pitches and rhythms)
 for section in song.get_unique_sections():
     chords = song.get_chord_progression(section)
@@ -55,10 +61,19 @@ final_chord = Chord(1,"maj",song.key)
 make_chord_measure(final_chord,4)
 song.append_final_measure(melody_engine.get_final_measure(song.beats_per_measure,final_chord,last_pitch_before_final_measure))
 
+mark3 = time.time()
+
 writer = MusicXMLWriter(song)
 writer.write("output.xml")
 
 end_time = time.time()
 
 print "Done generating song."
-print "Time Elapsed:",str(1000*(end_time-start_time))+"ms"
+
+output_time_elapsed("Time Elapsed",start_time,end_time)
+print "==================="
+
+output_time_elapsed("Song Initialization",start_time,mark1)
+output_time_elapsed("Chord Progression Generation",mark1,mark2)
+output_time_elapsed("Melody Generation",mark2,mark3)
+output_time_elapsed("Output (XML) Generation",mark3,end_time)
