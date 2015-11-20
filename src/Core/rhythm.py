@@ -35,7 +35,6 @@ def gen_rhythm(num_measures,beats_per_measure,note_length_weight=3,notes=global_
             notes_that_fit_measure = [x for x in available_notes if x <= remaining_in_measure]
             if len(notes_that_fit_measure) > 0:
                 available_notes = notes_that_fit_measure
-                #print "Filtering cross measure notes!"
 
         note = available_notes[random.randint(0,len(available_notes)-1)]
         result.append(note)
@@ -54,10 +53,10 @@ def get_weighted_list(weight):
 
 def count_over_measure_ties(rhythm,beats_per_measure):
     result = 0
-    currentBeat = 0
+    current_beat = 0
     for note in rhythm:
-        current_measure = currentBeat / beats_per_measure
-        currentBeat = currentBeat + note
-        if int(currentBeat / beats_per_measure) > current_measure and currentBeat % beats_per_measure != 0:
+        current_measure = current_beat / beats_per_measure
+        current_beat = current_beat + note
+        if int(current_beat / beats_per_measure) > current_measure and current_beat % beats_per_measure != 0:
             result += 1
     return result

@@ -164,24 +164,16 @@ class Section:
         current_measure_notes = []
 
         chord_index = -1
-        # print self.num_measures,beats_per_measure
-        #print " ".join([str(n.duration) for n in self.melody])
-        #raw_input()
         for note in self.melody:
-            #print "LOOP START"
             start_note = current_beat
             current_beat = current_beat + note.duration
             if start_note % beats_per_measure == 0:
-                #print "Start of measure"
                 if start_note > 0:
-                    #print "(new measure)"
                     measure = Measure(beats_per_measure, current_measure_notes)
                     measure.assign_chords([self.chord_progression[chord_index]])
                     result.append(measure)
                 current_measure_notes = []
                 chord_index = (chord_index + 1) % len(self.chord_progression)
-                #print "creating new, clear measure"
-            #print note
             current_measure_notes.append(note)
         if self.num_measures != int(sum([n.duration for n in self.get_melody()]) / beats_per_measure):
             print "fack"
@@ -189,7 +181,6 @@ class Section:
         measure = Measure(beats_per_measure, current_measure_notes)
         measure.assign_chords([self.chord_progression[chord_index]])
         result.append(measure)
-        #print self.letter+"-len result",len(result)
         return result
 
     @staticmethod

@@ -175,21 +175,11 @@ def different_enough(prog1, prog2):
     distance = float(levenshtein_distance(prog1_str, prog2_str)) / len(prog1_str)
     return distance > 0.5 and prog1[0].step != prog2[0].step
 
-chordTuples = [
+chord_tuples = [
     (3,5),
     (3,1),
     (5,1)
 ]
-
-def addSteps(step1,step2):
-    x1 = scale_steps[step1-1]
-    x2 = scale_steps[step2-1]
-    x = x1+x2
-    result = 8*(x / 12)
-    x = x % 12
-    result = result + x
-    return result
-
 
 def make_chord_measure(chord,measure_duration):
     '''
@@ -203,7 +193,7 @@ def make_chord_measure(chord,measure_duration):
     first_note = Note(first_pitch,rhythm[0])
     result = [[first_note]]
     for r in rhythm[1:]:
-        steps = chordTuples[random.randint(0,len(chordTuples)-1)]
+        steps = chord_tuples[random.randint(0,len(chord_tuples)-1)]
 
         dist1 = scale_steps[steps[0]-1]
         dist2 = scale_steps[steps[1]-1]
