@@ -2,5 +2,6 @@
 mkdir out
 
 python src/main.py
-musescore src/output.xml -o out/out.pdf > /dev/null
-rm src/output.xml
+musescore output.xml -o out/out.pdf > /dev/null
+rm output.xml
+echo "Generated song at out/output.pdf"
