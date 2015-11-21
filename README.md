@@ -15,3 +15,6 @@ All the functionality for chords and chord progressions is [here](https://github
 
 #### Key Signatures
 Each song that is generated has a [key signature](https://github.com/wilsonchaney/makemusic/blob/master/src/Core/music_theory.py#L330-L472). This makes it easy to consider a pitch in two different ways - the absolute location on the piano in terms of half steps, and the position in the scale of that key signature. (This makes harmonies WAY easier)
+
+### How do I run it?
+You can run makemusic by simply running the script entitled [run](https://github.com/wilsonchaney/makemusic/blob/master/run) in the root of the repository. It will generate a randomly seeded song, and leave a .pdf of the sheet music in `out/output.pdf` (the directory `out` is created the first time you run *makemusic*)

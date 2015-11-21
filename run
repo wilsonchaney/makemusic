@@ -1,0 +1,7 @@
+#!/bin/bash
+mkdir out
+
+python src/main.py
+musescore output.xml -o out/out.pdf > /dev/null
+rm output.xml
+echo "Generated song at out/output.pdf"
