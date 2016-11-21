@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<score-partwise>
+    <part-list>
+        <score-part id="P1">
+            <part-name>Music</part-name>
+        </score-part>
+    </part-list>
+    <part id="P1">
+        <measure tal:repeat="measure measures" tal:attributes="number repeat.measure.number">
+            <attributes>
+                <divisions>2</divisions>
+                <tal:block condition="not:repeat.measure.index">
+                    <key>
+                        <fifths>${ keysig_fifths }</fifths>
+                        <mode>major</mode>
+                    </key>
+                    <time>
+                        <beats>4</beats>
+                        <beat-type>4</beat-type>
+                    </time>
+                    <staves>2</staves>
+                    <clef number="1">
+                        <sign>G</sign>
+                        <line>2</line>
+                    </clef>
+                    <clef number="2">
+                        <sign>F</sign>
+                        <line>4</line>
+                    </clef>
+                </tal:block>
+            </attributes>
+            <!--! TODO: write chord symbol -->
+            <tal:block tal:repeat="note_s measure._notes">
+            <!--! `note_s` is a list of notes, because it could be a chord. -->
+            <note tal:repeat="note note_s">
+                <pitch>
+                    <step>${ note.pitch.letter[:1] }</step>
+                    <alter tal:condition="note.pitch.sharp_or_flat">${ note.pitch.sharp_or_flat }</alter>
+                    <octave>${ note.pitch.octave }</octave>
+                </pitch>
+                <duration>${ int(note.duration * 2) }</duration>
+                <tie tal:condition="note.tie" tal:attributes="type note.tie"/>
+                <type>${ note.type }</type>
+                <dot tal:condition="note.dot"/>
+                <staff>1</staff>
+                <chord tal:condition="repeat.note.index"/>
+                <notations tal:condition="note.tie">
+                    <tied tal:attributes="type note.tie"/>
+                </notations>
+            </note>
+            </tal:block>
+        </measure>
+    </part>
+</score-partwise>
